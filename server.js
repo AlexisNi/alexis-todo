@@ -16,7 +16,12 @@ var todos= [{
     id:3,
     description:'Feed the Cat',
     completed:true
-}];
+},{
+    id:4,
+    description:'Check  the Mpempi',
+    completed:true
+}
+];
 
 app.get('/',function (req,res) {
     res.send('Todo API Root');
