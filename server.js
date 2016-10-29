@@ -21,6 +21,7 @@ app.get('/todos' ,function (req,res) {
 
 app.get('/todos/:id',function (req,res) {
     var todoId=parseInt(req.params.id,10) ;
+    console.log(_.indexOf(todos,_.findWhere(todos,{id:todoId})));
     var matchedTodo=_.findWhere(todos,{id:todoId});
 
     if (matchedTodo){
@@ -46,6 +47,33 @@ app.post('/todos',function (req,res) {
 
 });
 
+
+app.delete('/todos/:id',function (req,res) {
+    var todoId=parseInt(req.params.id,10) ;
+    var matchedTodo=_.findWhere(todos,{id:todoId});
+
+    if (!matchedTodo){
+        res.status(404).json({"error":"no todo found with that id"});
+    }else {
+        todos=_.without(todos,matchedTodo);
+        res.json(matchedTodo);
+    }
+
+});
+
+/*
+app.post('/todos/:id/delete',function (req,res) {
+    var todoId=parseInt(req.params.id,10) ;
+    var index=_.indexOf(todos,_.findWhere(todos,{id:todoId}));
+
+    if (index>=0){
+        todos.splice(index,1);
+        console.log(todos+"deleted")
+    }else {
+        res.status(404).send();
+    }
+});
+*/
 
 app.listen(PORT,function () {
     console.log('Express listening on port '+ PORT+ '!')
