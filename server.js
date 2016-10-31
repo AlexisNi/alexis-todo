@@ -38,14 +38,25 @@ app.get('/todos' ,function (req,res) {
 
 app.get('/todos/:id',function (req,res) {
     var todoId=parseInt(req.params.id,10) ;
-    console.log(_.indexOf(todos,_.findWhere(todos,{id:todoId})));
+    db.todo.findById(todoId).then(function (todo) {
+        if(!!todo){
+            res.json(todo.toJSON());
+        }else {
+            res.status(404).send();
+        }
+
+    },function (e) {
+        res.status(500).json(e);
+
+    });
+   /* console.log(_.indexOf(todos,_.findWhere(todos,{id:todoId})));
     var matchedTodo=_.findWhere(todos,{id:todoId});
 
     if (matchedTodo){
         res.json(matchedTodo);
     }else {
         res.status(404).send();
-    }
+    }*/
 });
 
 app.post('/todos',function (req,res) {
