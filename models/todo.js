@@ -1,6 +1,3 @@
-/**
- * Created by alex on 31/10/2016.
- */
 module.exports=function (sequelize,DataTypes) {
 
     return sequelize.define('todo',{
